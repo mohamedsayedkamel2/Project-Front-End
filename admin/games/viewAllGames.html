@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1, minimum-scale=1.0">
+    <title>Edit videogame</title>
+</head>
+<style>
+a:link {
+  text-decoration: none;
+}
+</style>
+<body>
+<div class="container-fluid">
+    <div>
+        <form method="post" name="LogoutForm">
+            <input type="submit" />
+        </form>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <a class="navbar-brand" href="">
+                <img src="../../img/SmallLogo.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="topNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link">Platforms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">All video games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Purchased games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="logoutLink" href="" >Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="navbar-text nav-link bg-primary " style="color:white;">Balance: $0.0</span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="text-center">
+    <h2>Manage All Games</h2>
+    <a href="@{/admin/games/add}" class="text-primary">Add a new Game</a>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Game Name</th>
+        <th>Platform</th>
+        <th>Price</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="videogame : ${videogames}">
+        <td th:text="${videogame.gameName}"></td>
+        <td th:text="${videogame.platform.name}"></td>
+        <td th:text="${videogame.price}"></td>
+        <td><a th:href="@{/admin/games/edit/{id}(id=${videogame.id})}" class="text-primary">Edit</a></td>
+        <td><a th:href="@{/admin/games/delete/{id}(id=${videogame.id})}" class="text-danger">Delete</a></td>
+        </block>
+    </tr>
+</table>
+<div class="text-center m-1" th:if="${totalItems > 0}">
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" th:href="@{/admin/games/1}">First</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/games/' + ${currentPage - 1}}" th:if="${currentPage != 1}">Previous</a></li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"><a class="page-link" th:href="@{'/admin/games/' + ${i}}">[[${i}]]</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/games/' + ${currentPage + 1}}" th:if="${currentPage != totalPages}">Next</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/games/' + ${totalPages}}">Last</a></li>
+        </ul>
+    </nav>
+Page [[${currentPage}]] of [[${totalPages}]]<br>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#logoutLink").on("click", function(e){
+            e.preventDefault();
+            document.LogoutForm.submit();
+        });
+    });
+</script>
+</body>
+</html>

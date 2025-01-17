@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="shortcut icon" href="#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1, minimum-scale=1.0">
+    <title>Gaming4All</title>
+	</head>
+<body>
+<div class="container-fluid text-center">
+<div class="text-center">
+    <h1>Registration form</h1>
+</div>
+<form action="@{/customer/register}" method="post" style="max-width: 350px; margin: 0 auto">
+    <div class="border border-secondary rounded p-3">
+        <p>Registration Page</p>
+    Your First name: <input th:field="*{firstName}" required><br>
+    Your Last name: <input th:field="*{LastName}"><br>
+    Your username: <input th:field="*{username}"><br>
+    Your email: <input th:field="*{email}" type="email" required><br>
+    Your password: <input th:field="*{password}" type="password" required><br>
+    Your country: <input th:field="*{countryName}"><br>
+    Your City: <input th:field="*{cityName}"><br>
+    Your Street: <input th:field="*{streetName}"><br>
+    Your zipCode: <input th:field="*{zipCode}"><br>
+    <input type="submit" class="btn btn-primary" value="Submit">
+    <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel"/>
+    </div>
+</form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $("#buttonCancel").on("click", function()
+        {
+            window.location = "[[@{/login}]]";
+        });
+    });
+</script>
+</body>
+</html>
